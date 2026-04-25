@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test - Reinos Cristianos Medievales 3º ESO</title>
+    <title>Test Reinos Cristianos - 3º ESO</title>
     <style>
         * {
             margin: 0;
@@ -11,217 +11,304 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        :root {
+            --primary: #667eea;
+            --primary-dark: #764ba2;
+            --secondary: #00b894;
+            --danger: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --border: #e0e0e0;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
+            padding: 20px;
         }
 
-        .container {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            max-width: 800px;
+        .main-container {
             width: 100%;
-            padding: 40px;
+            max-width: 900px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 40px 20px;
             text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 20px;
         }
 
         .header h1 {
-            color: #333;
-            font-size: 28px;
+            font-size: 2.5em;
             margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
         .header p {
-            color: #666;
-            font-size: 14px;
+            font-size: 1.1em;
+            opacity: 0.9;
         }
 
-        .progress-bar {
+        .progress-section {
+            padding: 30px 20px;
+            background: var(--light);
+        }
+
+        .progress-bar-container {
             background: #e0e0e0;
             height: 8px;
             border-radius: 10px;
-            margin: 20px 0;
             overflow: hidden;
+            margin-bottom: 15px;
         }
 
-        .progress-fill {
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        .progress-bar {
             height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
             width: 0%;
-            transition: width 0.3s ease;
+            transition: width 0.4s ease;
+            border-radius: 10px;
         }
 
-        .question-container {
-            margin-bottom: 30px;
+        .progress-text {
+            text-align: center;
+            color: var(--dark);
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 40px 30px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .question-number {
-            color: #667eea;
-            font-weight: bold;
-            font-size: 14px;
-            margin-bottom: 8px;
+            color: var(--primary);
+            font-size: 0.85em;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
         }
 
         .question-text {
-            color: #333;
-            font-size: 16px;
-            font-weight: 500;
-            margin-bottom: 15px;
-            line-height: 1.5;
+            font-size: 1.3em;
+            color: var(--dark);
+            margin-bottom: 30px;
+            line-height: 1.6;
+            font-weight: 600;
         }
 
         .options {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         .option {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
+            padding: 16px 20px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: white;
             cursor: pointer;
             transition: all 0.3s ease;
-            background: white;
+            display: flex;
+            align-items: center;
         }
 
         .option:hover {
-            border-color: #667eea;
+            border-color: var(--primary);
             background: #f8f9ff;
-        }
-
-        .option input[type="radio"] {
-            cursor: pointer;
-            margin-right: 12px;
-            width: 18px;
-            height: 18px;
-        }
-
-        .option label {
-            cursor: pointer;
-            flex: 1;
-            color: #333;
-            font-size: 15px;
+            transform: translateX(5px);
         }
 
         .option.selected {
-            border-color: #667eea;
-            background: #f0f4ff;
+            border-color: var(--primary);
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8ecff 100%);
         }
 
-        .hidden {
-            display: none;
+        .option-radio {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .option.selected .option-radio {
+            border-color: var(--primary);
+            background: var(--primary);
+            box-shadow: inset 0 0 0 4px white;
+        }
+
+        .option-text {
+            color: var(--dark);
+            font-size: 1em;
+            flex: 1;
         }
 
         .button-group {
             display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 30px;
+            gap: 15px;
+            margin-top: 40px;
             flex-wrap: wrap;
         }
 
         button {
-            padding: 12px 30px;
+            flex: 1;
+            min-width: 140px;
+            padding: 14px 25px;
             border: none;
-            border-radius: 8px;
-            font-size: 16px;
+            border-radius: 10px;
+            font-size: 1em;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            -webkit-appearance: none;
+        }
+
+        .btn-prev {
+            background: #e8e8e8;
+            color: var(--dark);
+        }
+
+        .btn-prev:hover:not(:disabled) {
+            background: #d0d0d0;
+            transform: translateY(-2px);
+        }
+
+        .btn-prev:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         .btn-next {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
-            flex: 1;
-            min-width: 150px;
+            flex-grow: 2;
         }
 
         .btn-next:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: var(--shadow);
         }
 
-        .btn-prev {
-            background: #e0e0e0;
-            color: #333;
-            flex: 1;
-            min-width: 150px;
-        }
-
-        .btn-prev:hover {
-            background: #d0d0d0;
+        .btn-next:active {
+            transform: translateY(0);
         }
 
         .btn-finish {
-            background: linear-gradient(135deg, #00b894 0%, #00a383 100%);
+            background: linear-gradient(135deg, var(--secondary) 0%, #009373 100%);
             color: white;
             width: 100%;
+            font-size: 1.1em;
         }
 
         .btn-finish:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0, 184, 148, 0.4);
+            box-shadow: var(--shadow);
         }
 
-        .btn-restart {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            width: 100%;
-        }
-
-        .btn-restart:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        .results {
+        .results-section {
+            display: none;
+            padding: 60px 30px;
             text-align: center;
-            padding: 40px 20px;
+            animation: slideUp 0.6s ease;
         }
 
-        .results h2 {
-            color: #333;
-            font-size: 32px;
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .results-section.show {
+            display: block;
+        }
+
+        .results-icon {
+            font-size: 4em;
             margin-bottom: 20px;
+            animation: bounce 0.8s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .results-title {
+            font-size: 2em;
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-weight: 700;
         }
 
         .score-circle {
             width: 150px;
             height: 150px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 48px;
-            font-weight: bold;
-            margin: 0 auto 30px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            font-size: 3.5em;
+            color: white;
+            font-weight: 700;
+            box-shadow: var(--shadow);
         }
 
         .score-circle.excellent {
-            background: linear-gradient(135deg, #00b894 0%, #00a383 100%);
+            background: linear-gradient(135deg, var(--secondary) 0%, #009373 100%);
         }
 
         .score-circle.good {
-            background: linear-gradient(135deg, #0984e3 0%, #056dd7 100%);
+            background: linear-gradient(135deg, #0984e3 0%, #0060b3 100%);
         }
 
         .score-circle.average {
@@ -229,327 +316,253 @@
         }
 
         .score-circle.poor {
-            background: linear-gradient(135deg, #e17055 0%, #d63031 100%);
+            background: linear-gradient(135deg, var(--danger) 0%, #e84c3d 100%);
         }
 
         .result-message {
+            font-size: 1.2em;
             color: #666;
-            font-size: 16px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             line-height: 1.6;
         }
 
-        .result-stats {
-            background: #f5f5f5;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            text-align: left;
+        .stats-grid {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
         }
 
-        .stat {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #ddd;
-            color: #333;
-        }
-
-        .stat:last-child {
-            border-bottom: none;
+        .stat-item {
+            text-align: center;
         }
 
         .stat-label {
+            color: #999;
+            font-size: 0.9em;
+            margin-bottom: 10px;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .stat-value {
-            color: #667eea;
-            font-weight: bold;
+            font-size: 2.2em;
+            color: var(--primary);
+            font-weight: 700;
         }
 
-        .question-navigation {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
+        .btn-restart {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            width: 100%;
+            font-size: 1.1em;
         }
 
-        .question-counter {
-            color: #999;
-            font-size: 14px;
+        .btn-restart:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
         }
 
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
             }
 
-            .header h1 {
-                font-size: 22px;
+            .content {
+                padding: 30px 20px;
             }
 
             .question-text {
-                font-size: 15px;
+                font-size: 1.15em;
             }
 
             .button-group {
-                flex-direction: column;
+                flex-direction: column-reverse;
             }
 
-            .btn-next, .btn-prev {
+            button {
                 min-width: unset;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 30px 15px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .content {
+                padding: 25px 15px;
+                min-height: 350px;
+            }
+
+            .question-text {
+                font-size: 1em;
+            }
+
+            .option {
+                padding: 12px 15px;
+            }
+
+            .option-radio {
+                width: 20px;
+                height: 20px;
+            }
+
+            .score-circle {
+                width: 120px;
+                height: 120px;
+                font-size: 2.5em;
+            }
+
+            .results-title {
+                font-size: 1.5em;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🏰 Test: Reinos Cristianos Medievales</h1>
-            <p>Nivel 3º ESO - Evalúa tus conocimientos</p>
-        </div>
-
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-
-        <div id="testContent">
-            <div class="question-navigation">
-                <span class="question-counter"><span id="currentQuestion">1</span>/30</span>
+    <div class="main-container">
+        <div id="testView">
+            <div class="header">
+                <h1>🏰 Test Reinos Cristianos</h1>
+                <p>3º ESO - Evalúa tus conocimientos</p>
             </div>
 
-            <div id="questionsContainer"></div>
+            <div class="progress-section">
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div class="progress-text">
+                    Pregunta <span id="currentNum">1</span> de 30
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="question-number" id="questionNum"></div>
+                <div class="question-text" id="questionText"></div>
+                <div class="options" id="optionsContainer"></div>
+            </div>
 
             <div class="button-group">
-                <button class="btn-prev" id="prevBtn" onclick="previousQuestion()" style="display: none;">← Anterior</button>
+                <button class="btn-prev" id="prevBtn" onclick="prevQuestion()" disabled>← Anterior</button>
                 <button class="btn-next" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
-                <button class="btn-finish" id="finishBtn" onclick="finishTest()" style="display: none;">Finalizar Test</button>
+                <button class="btn-finish hidden" id="finishBtn" onclick="finishTest()">Terminar Test</button>
             </div>
         </div>
 
-        <div id="resultsContent" class="hidden">
-            <div class="results">
-                <h2>¡Test Completado!</h2>
-                <div class="score-circle" id="scoreCircle">0%</div>
-                <p class="result-message" id="resultMessage"></p>
-                
-                <div class="result-stats">
-                    <div class="stat">
-                        <span class="stat-label">Preguntas correctas:</span>
-                        <span class="stat-value" id="correctCount">0</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-label">Preguntas incorrectas:</span>
-                        <span class="stat-value" id="incorrectCount">0</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-label">Preguntas sin responder:</span>
-                        <span class="stat-value" id="unansweredCount">0</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-label">Calificación:</span>
-                        <span class="stat-value" id="grade">0/10</span>
-                    </div>
-                </div>
+        <div id="resultsView" class="results-section">
+            <div class="results-icon" id="resultIcon">🎉</div>
+            <div class="results-title">¡Prueba Finalizada!</div>
+            
+            <div class="score-circle" id="scoreCircle">0%</div>
+            
+            <p class="result-message" id="resultMessage"></p>
 
-                <button class="btn-restart" onclick="restartTest()">Reiniciar Test</button>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-label">Correctas</div>
+                    <div class="stat-value" id="correctCount">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Incorrectas</div>
+                    <div class="stat-value" id="incorrectCount">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Sin Responder</div>
+                    <div class="stat-value" id="unansweredCount">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Calificación</div>
+                    <div class="stat-value" id="gradeValue">0/10</div>
+                </div>
             </div>
+
+            <button class="btn-restart" onclick="restartTest()">Reintentar Test</button>
         </div>
     </div>
 
     <script>
         const questions = [
-            {
-                question: "¿En qué año comenzó la decadencia política territorial de al-Ándalus?",
-                options: ["1031", "1085", "1147", "1212"],
-                correct: 0
-            },
-            {
-                question: "¿Cuál era la capital del Califato de Córdoba antes de su fragmentación?",
-                options: ["Sevilla", "Toledo", "Córdoba", "Granada"],
-                correct: 2
-            },
-            {
-                question: "¿Qué reinos musulmanes se establecieron después de la desintegración del Califato?",
-                options: ["Reinos de taifas", "Emiratos", "Sultanatos", "Califatos"],
-                correct: 0
-            },
-            {
-                question: "¿En qué periodo gobernaron los almorávides en al-Ándalus?",
-                options: ["1031-1085", "1085-1144", "1144-1224", "1224-1492"],
-                correct: 1
-            },
-            {
-                question: "¿Cuál fue la batalla más importante ganada por Alfons VI en 1085?",
-                options: ["Batalla de Sagrajas", "Batalla de Las Navas de Tolosa", "Conquista de Toledo", "Batalla de Alarcos"],
-                correct: 2
-            },
-            {
-                question: "¿Qué dinastía norteafricana conquistó al-Ándalus en 1086?",
-                options: ["Fatimíes", "Almorávides", "Almohades", "Omeyas"],
-                correct: 1
-            },
-            {
-                question: "¿En qué año se produjo la batalla de Sagrajas?",
-                options: ["1086", "1106", "1147", "1212"],
-                correct: 0
-            },
-            {
-                question: "¿Cuándo penetraron los almohades en la Península Ibérica?",
-                options: ["1086", "1106", "1147", "1171"],
-                correct: 2
-            },
-            {
-                question: "¿Qué reino musulmán fue el último en desaparecer en 1492?",
-                options: ["Reino de Sevilla", "Reino de Córdoba", "Reino de Granada", "Reino de Málaga"],
-                correct: 2
-            },
-            {
-                question: "¿Cuál fue una de las consecuencias principales de la desintegración del Califato?",
-                options: ["Unión de los reinos cristianos", "Fortalecimiento del poder musulmán", "Capacidad de expansión de los cristianos", "Aislamiento total de la Península"],
-                correct: 2
-            },
-            {
-                question: "¿Qué monarca unificó Castilla y León definitivamente?",
-                options: ["Alfonso VI", "Fernando III", "Alfonso X", "Enrique III"],
-                correct: 1
-            },
-            {
-                question: "¿En qué siglo se consolida la monarquía de Castilla?",
-                options: ["Siglo XI", "Siglo XII", "Siglo XIII", "Siglo XIV"],
-                correct: 2
-            },
-            {
-                question: "¿Qué tipo de monarquía era Castilla?",
-                options: ["Federativa", "Unitaria", "Confederada", "Electiva"],
-                correct: 1
-            },
-            {
-                question: "¿Qué corona estaba formada por varios reinos independientes?",
-                options: ["Corona de Castilla", "Corona de Aragón", "Reino de Portugal", "Reino de Navarra"],
-                correct: 1
-            },
-            {
-                question: "¿Cómo se organizaba administrativamente al-Ándalus antes del 1031?",
-                options: ["Por provincias", "Por ciudades-estado", "Por emires", "Por califatos"],
-                correct: 0
-            },
-            {
-                question: "¿Cuál era el órgano de gobierno que asesoraba al rey en Castilla?",
-                options: ["Senado", "Curia Regia", "Parlamento", "Consejo de ministros"],
-                correct: 1
-            },
-            {
-                question: "¿En qué siglo se incorporó la Cúria Regia a los burgueses en Castilla?",
-                options: ["Siglo XI", "Siglo XII", "Siglo XIII", "Siglo XIV"],
-                correct: 2
-            },
-            {
-                question: "¿Qué son las Cortes medievales?",
-                options: ["Palacios reales", "Asambleas de representantes de tres estamentos", "Tribunales de justicia", "Guarniciones militares"],
-                correct: 1
-            },
-            {
-                question: "¿Qué estamentos estaban representados en las Cortes medievales?",
-                options: ["Nobility, clergy and commons", "Clergy, commons and merchants", "Nobility, clergy and people", "Clergy, merchants and farmers"],
-                correct: 2
-            },
-            {
-                question: "¿Cuándo se reunieron las primeras Cortes documentadas en León?",
-                options: ["1076", "1100", "1188", "1212"],
-                correct: 2
-            },
-            {
-                question: "¿Cuál es un ejemplo de monumento del arte mudéjar en al-Ándalus?",
-                options: ["La Alhambra de Granada", "La Girald de Sevilla", "La Mezquita de Córdoba", "La Torre de Oro"],
-                correct: 1
-            },
-            {
-                question: "¿Qué estilo arquitectónico predominó en los almohades?",
-                options: ["Románico", "Gótico", "Mudéjar", "Islámico"],
-                correct: 3
-            },
-            {
-                question: "¿A qué se dedicaba principalmente la economía medieval cristiana?",
-                options: ["Al comercio exterior", "A la agricultura y ganadería", "A la minería", "A la industria textil"],
-                correct: 1
-            },
-            {
-                question: "¿Qué papel tenía la ciudad de Toledo en la Edad Media?",
-                options: ["Principal puerto comercial", "Centro de traducción de obras árabes", "Centro minero", "Capital política"],
-                correct: 1
-            },
-            {
-                question: "¿Qué se comerciaba principalmente desde la Península Ibérica en la Edad Media?",
-                options: ["Oro y plata", "Textiles, lana y especias", "Aceite y vino", "Sal y hierro"],
-                correct: 1
-            },
-            {
-                question: "¿Qué sistema de repoblación se utilizó en la vall del Guadalquivir?",
-                options: ["Repartimiento", "Concejos", "Señoríos", "Foros"],
-                correct: 0
-            },
-            {
-                question: "¿Qué privilegios tenían los caballeros en la sociedad estamental?",
-                options: ["Pagar impuestos y servir", "Poseer tierra y equipo de guerra", "No pagar impuestos y ejercer justicia", "Solo servicio militar"],
-                correct: 2
-            },
-            {
-                question: "¿Cuál era el grupo social más numeroso en el No privilegiado?",
-                options: ["Clero", "Nobleza", "Pecheros", "Caballeros"],
-                correct: 2
-            },
-            {
-                question: "¿Qué eran los mudéjares?",
-                options: ["Cristianos conversos", "Musulmanes en territorio cristiano", "Judíos españoles", "Monjes guerreros"],
-                correct: 1
-            },
-            {
-                question: "¿Cuándo fue expulsada la dinastía de los almohades del territorio andalusí?",
-                options: ["1147", "1212", "1224", "1238"],
-                correct: 2
-            }
+            {q: "¿En qué año comienza la decadencia política y territorial de al-Ándalus?", o: ["1031", "1085", "1147", "1212"], a: 0},
+            {q: "¿Cuáles eran los reinos de taifas más importantes mencionados?", o: ["Árabes de Córdoba, Sevilla, Badajoz, Toledo, Saraqosta i Múrcia", "Solo cristianos", "Emiratos y Califatos", "Reinos del norte"], a: 0},
+            {q: "¿En qué período gobernaron los almorávides?", o: ["1031-1085", "1085-1144", "1144-1224", "1224-1492"], a: 1},
+            {q: "¿En qué año fue la batalla de Sagrajas?", o: ["1086", "1106", "1147", "1212"], a: 0},
+            {q: "¿Cuál fue la capital del imperio almorávide?", o: ["Córdoba", "Sevilla", "Marrakesh", "Granada"], a: 2},
+            {q: "¿En qué período gobernaron los almohades?", o: ["1085-1144", "1144-1224", "1147-1224", "1224-1492"], a: 2},
+            {q: "¿Cuál fue la batalla más importante contra los almohades?", o: ["Batalla de Sagrajas", "Las Navas de Tolosa", "Batalla de Alarcos", "Conquista de Toledo"], a: 1},
+            {q: "¿En qué año se produjo la batalla de Las Navas de Tolosa?", o: ["1086", "1147", "1195", "1212"], a: 3},
+            {q: "¿Cuándo fue expulsada la dinastía almohade?", o: ["1212", "1224", "1238", "1492"], a: 0},
+            {q: "¿Cuál fue el último reino musulmán en la Península?", o: ["Córdoba", "Sevilla", "Granada", "Málaga"], a: 2},
+            {q: "¿Cuál fue una de las principales realizaciones artísticas de los primeros reines de taifes?", o: ["Torre de Oro", "Palau de l'Alfajeria de Saraqosta", "Giralda de Sevilla", "Alhambra de Granada"], a: 1},
+            {q: "¿Qué monumento mudéjar es mencionado en Niebla?", o: ["Arc de la muralla almorávit", "Torre de Oro", "Alhambra", "Giralda"], a: 0},
+            {q: "¿Cuál fue una manifestación artística importante de los almohades?", o: ["Castillo de Monteagudo", "Palau de l'Alfajeria", "Giralda", "Alhambra"], a: 0},
+            {q: "¿Qué monumento importante de Sevilla se menciona?", o: ["Torre de Oro", "Giralda de Sevilla", "Alhambra", "Alcázar"], a: 1},
+            {q: "¿Cuál es el edificio defensivo más importante mencionado en Badajoz?", o: ["Giralda", "Torre de l'Or", "Alhambra", "Castillo"], a: 1},
+            {q: "¿Quién unificó definitivamente Castilla y León?", o: ["Alfonso VI", "Fernando III", "Alfonso X", "Enrique III"], a: 1},
+            {q: "¿En qué siglo se consolida Castilla como reino poderoso?", o: ["Siglo XI", "Siglo XII", "Siglo XIII", "Siglo XIV"], a: 2},
+            {q: "¿Cuál corona estaba formada por varios reinos independientes?", o: ["Castilla", "Aragón", "Portugal", "Navarra"], a: 1},
+            {q: "¿Qué reinos formaban la corona de Aragón?", o: ["Castilla y León", "Aragó, Catalunya, Mallorca y Valencia", "Portugal y Navarra", "Navarra y Castilla"], a: 1},
+            {q: "¿Cuál era el tipo de monarquía de Castilla?", o: ["Federativa", "Confederada", "Unitaria", "Electiva"], a: 2},
+            {q: "¿Qué institución asesoraba al rey en Castilla?", o: ["Parlamento", "Senado", "Cúria Regia", "Cortes solamente"], a: 2},
+            {q: "¿Cuándo se documentan las primeras Cortes en León?", o: ["1076", "1100", "1188", "1212"], a: 2},
+            {q: "¿Qué son las Cortes medievales?", o: ["Palacios reales", "Asambleas de representantes de los tres estamentos", "Tribunales", "Guarniciones"], a: 1},
+            {q: "¿Cuáles eran los tres estamentos?", o: ["Nobles, clero y pueblo", "Ricos, pobres, clase media", "Guerreros, sacerdotes, campesinos", "Rey, nobles, pecheros"], a: 0},
+            {q: "¿En qué siglo se incorporaron los burgueses a la Cúria Regia?", o: ["Siglo XI", "Siglo XII", "Siglo XIII", "Siglo XIV"], a: 2},
+            {q: "¿Cuál era la base principal de la economía?", o: ["Comercio marítimo", "Agricultura i ramaderia", "Minería", "Industria"], a: 1},
+            {q: "¿Qué institución regulaba la ganadería en Castilla?", o: ["Gremio de pastores", "Honrado Concejo de la Mesta", "Corporación de criadores", "Sindicato de ganaderos"], a: 1},
+            {q: "¿Cuál era la importancia de Toledo en la Edad Media?", o: ["Puerto comercial", "Centro de traducción de obras árabes", "Capital política", "Centro minero"], a: 1},
+            {q: "¿Qué se comerciaba desde la Península?", o: ["Solo oro y plata", "Textiles, lana y especias", "Solo aceite", "Solo sal y hierro"], a: 1},
+            {q: "¿Qué eran los mudéjares?", o: ["Cristianos convertidos al islam", "Musulmanes en territorio cristiano", "Judíos españoles", "Nómadas"], a: 1}
         ];
 
         let currentQuestion = 0;
         let answers = new Array(30).fill(null);
-        let testFinished = false;
-
-        function initTest() {
-            renderQuestion();
-            updateProgress();
-        }
 
         function renderQuestion() {
-            const container = document.getElementById('questionsContainer');
             const q = questions[currentQuestion];
-            
-            let html = `
-                <div class="question-container">
-                    <div class="question-number">Pregunta ${currentQuestion + 1}</div>
-                    <div class="question-text">${q.question}</div>
-                    <div class="options">
-            `;
-            
-            q.options.forEach((option, index) => {
+            document.getElementById('questionNum').textContent = `Pregunta ${currentQuestion + 1}`;
+            document.getElementById('currentNum').textContent = currentQuestion + 1;
+            document.getElementById('questionText').textContent = q.q;
+
+            let html = '';
+            q.o.forEach((option, index) => {
                 const isSelected = answers[currentQuestion] === index;
-                const selectedClass = isSelected ? 'selected' : '';
                 html += `
-                    <div class="option ${selectedClass}" onclick="selectOption(${index})">
-                        <input type="radio" id="option${index}" name="answer" value="${index}" ${isSelected ? 'checked' : ''}>
-                        <label for="option${index}">${option}</label>
+                    <div class="option ${isSelected ? 'selected' : ''}" onclick="selectOption(${index})">
+                        <div class="option-radio"></div>
+                        <div class="option-text">${option}</div>
                     </div>
                 `;
             });
-            
-            html += `</div></div>`;
-            container.innerHTML = html;
-            
-            document.getElementById('currentQuestion').textContent = currentQuestion + 1;
-            updateButtons();
+            document.getElementById('optionsContainer').innerHTML = html;
+
+            const progress = ((currentQuestion + 1) / 30) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            const isLast = currentQuestion === 29;
+            document.getElementById('nextBtn').classList.toggle('hidden', isLast);
+            document.getElementById('finishBtn').classList.toggle('hidden', !isLast);
         }
 
         function selectOption(index) {
@@ -558,124 +571,71 @@
         }
 
         function nextQuestion() {
-            if (currentQuestion < questions.length - 1) {
+            if (currentQuestion < 29) {
                 currentQuestion++;
                 renderQuestion();
-                updateProgress();
             }
         }
 
-        function previousQuestion() {
+        function prevQuestion() {
             if (currentQuestion > 0) {
                 currentQuestion--;
                 renderQuestion();
-                updateProgress();
             }
-        }
-
-        function updateButtons() {
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            const finishBtn = document.getElementById('finishBtn');
-            
-            prevBtn.style.display = currentQuestion > 0 ? 'block' : 'none';
-            
-            if (currentQuestion === questions.length - 1) {
-                nextBtn.style.display = 'none';
-                finishBtn.style.display = 'block';
-            } else {
-                nextBtn.style.display = 'block';
-                finishBtn.style.display = 'none';
-            }
-        }
-
-        function updateProgress() {
-            const progress = ((currentQuestion + 1) / questions.length) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
         }
 
         function finishTest() {
-            calculateResults();
-            showResults();
-        }
-
-        function calculateResults() {
             let correct = 0;
             let unanswered = 0;
-            
-            answers.forEach((answer, index) => {
-                if (answer === null) {
-                    unanswered++;
-                } else if (answer === questions[index].correct) {
-                    correct++;
-                }
-            });
-            
-            const incorrect = answers.length - correct - unanswered;
-            const percentage = (correct / questions.length) * 100;
-            const grade = (correct / questions.length) * 10;
-            
-            return {
-                correct,
-                incorrect,
-                unanswered,
-                percentage: Math.round(percentage),
-                grade: grade.toFixed(2)
-            };
-        }
 
-        function showResults() {
-            const results = calculateResults();
-            
-            document.getElementById('testContent').classList.add('hidden');
-            document.getElementById('resultsContent').classList.remove('hidden');
-            
-            const scoreCircle = document.getElementById('scoreCircle');
-            scoreCircle.textContent = results.percentage + '%';
-            
-            scoreCircle.className = 'score-circle';
-            if (results.percentage >= 90) {
-                scoreCircle.classList.add('excellent');
-            } else if (results.percentage >= 70) {
-                scoreCircle.classList.add('good');
-            } else if (results.percentage >= 50) {
-                scoreCircle.classList.add('average');
+            answers.forEach((answer, index) => {
+                if (answer === null) unanswered++;
+                else if (answer === questions[index].a) correct++;
+            });
+
+            const incorrect = 30 - correct - unanswered;
+            const percentage = Math.round((correct / 30) * 100);
+            const grade = (correct / 30) * 10;
+
+            document.getElementById('testView').style.display = 'none';
+            document.getElementById('resultsView').classList.add('show');
+
+            document.getElementById('scoreCircle').textContent = percentage + '%';
+            document.getElementById('scoreCircle').className = 'score-circle';
+
+            if (percentage >= 90) {
+                document.getElementById('scoreCircle').classList.add('excellent');
+                document.getElementById('resultMessage').textContent = '¡Excelente! Dominas perfectamente el tema.';
+                document.getElementById('resultIcon').textContent = '🏆';
+            } else if (percentage >= 70) {
+                document.getElementById('scoreCircle').classList.add('good');
+                document.getElementById('resultMessage').textContent = '¡Muy bien! Tienes buena comprensión del tema.';
+                document.getElementById('resultIcon').textContent = '✨';
+            } else if (percentage >= 50) {
+                document.getElementById('scoreCircle').classList.add('average');
+                document.getElementById('resultMessage').textContent = 'Regular. Necesitas repasar algunos conceptos.';
+                document.getElementById('resultIcon').textContent = '📚';
             } else {
-                scoreCircle.classList.add('poor');
+                document.getElementById('scoreCircle').classList.add('poor');
+                document.getElementById('resultMessage').textContent = 'Insuficiente. Estudia más el tema.';
+                document.getElementById('resultIcon').textContent = '💪';
             }
-            
-            const messages = {
-                excellent: '¡Excelente! Dominas perfectamente el tema.',
-                good: '¡Muy bien! Tienes una buena comprensión del tema.',
-                average: 'Regular. Necesitas repasar algunos conceptos.',
-                poor: 'Insuficiente. Te recomendamos estudiar más el tema.'
-            };
-            
-            let messageKey = 'poor';
-            if (results.percentage >= 90) messageKey = 'excellent';
-            else if (results.percentage >= 70) messageKey = 'good';
-            else if (results.percentage >= 50) messageKey = 'average';
-            
-            document.getElementById('resultMessage').textContent = messages[messageKey];
-            document.getElementById('correctCount').textContent = results.correct;
-            document.getElementById('incorrectCount').textContent = results.incorrect;
-            document.getElementById('unansweredCount').textContent = results.unanswered;
-            document.getElementById('grade').textContent = results.grade + '/10';
+
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('incorrectCount').textContent = incorrect;
+            document.getElementById('unansweredCount').textContent = unanswered;
+            document.getElementById('gradeValue').textContent = grade.toFixed(1) + '/10';
         }
 
         function restartTest() {
             currentQuestion = 0;
             answers = new Array(30).fill(null);
-            testFinished = false;
-            
-            document.getElementById('testContent').classList.remove('hidden');
-            document.getElementById('resultsContent').classList.add('hidden');
-            
+            document.getElementById('testView').style.display = 'block';
+            document.getElementById('resultsView').classList.remove('show');
             renderQuestion();
-            updateProgress();
         }
 
-        initTest();
+        renderQuestion();
     </script>
 </body>
 </html>
