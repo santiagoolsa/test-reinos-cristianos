@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Reinos Cristianos Medievales 3º ESO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .question-text {
+            color: #333;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .option input[type="radio"] {
+            cursor: pointer;
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-prev {
+            background: #e0e0e0;
+            color: #333;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .btn-prev:hover {
+            background: #d0d0d0;
+        }
+
+        .btn-finish {
+            background: linear-gradient(135deg, #00b894 0%, #00a383 100%);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-finish:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 184, 148, 0.4);
+        }
+
+        .btn-restart {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-restart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .results {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .results h2 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: bold;
+            margin: 0 auto 30px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .score-circle.excellent {
+            background: linear-gradient(135deg, #00b894 0%, #00a383 100%);
+        }
+
+        .score-circle.good {
+            background: linear-gradient(135deg, #0984e3 0%, #056dd7 100%);
+        }
+
+        .score-circle.average {
+            background: linear-gradient(135deg, #fdcb6e 0%, #f39c12 100%);
+        }
+
+        .score-circle.poor {
+            background: linear-gradient(135deg, #e17055 0%, #d63031 100%);
+        }
+
+        .result-message {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .result-stats {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+            color: #333;
+        }
+
+        .stat:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            font-weight: 600;
+        }
+
+        .stat-value {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .question-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .question-counter {
+            color: #999;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .question-text {
+                font-size: 15px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn-next, .btn-prev {
+                min-width: unset;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏰 Test: Reinos Cristianos Medievales</h1>
+            <p>Nivel 3º ESO - Evalúa tus conocimientos</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div id="testContent">
+            <div class="question-navigation">
+                <span class="question-counter"><span id="currentQuestion">1</span>/30</span>
+            </div>
+
+            <div id="questionsContainer"></div>
+
+            <div class="button-group">
+                <button class="btn-prev" id="prevBtn" onclick="previousQuestion()" style="display: none;">← Anterior</button>
+                <button class="btn-next" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+                <button class="btn-finish" id="finishBtn" onclick="finishTest()" style="display: none;">Finalizar Test</button>
+            </div>
+        </div>
+
+        <div id="resultsContent" class="hidden">
+            <div class="results">
+                <h2>¡Test Completado!</h2>
+                <div class="score-circle" id="scoreCircle">0%</div>
+                <p class="result-message" id="resultMessage"></p>
+                
+                <div class="result-stats">
+                    <div class="stat">
+                        <span class="stat-label">Preguntas correctas:</span>
+                        <span class="stat-value" id="correctCount">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Preguntas incorrectas:</span>
+                        <span class="stat-value" id="incorrectCount">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Preguntas sin responder:</span>
+                        <span class="stat-value" id="unansweredCount">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Calificación:</span>
+                        <span class="stat-value" id="grade">0/10</span>
+                    </div>
+                </div>
+
+                <button class="btn-restart" onclick="restartTest()">Reiniciar Test</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "¿En qué año comenzó la decadencia política territorial de al-Ándalus?",
+                options: ["1031", "1085", "1147", "1212"],
+                correct: 0
+            },
+            {
+                question: "¿Cuál era la capital del Califato de Córdoba antes de su fragmentación?",
+                options: ["Sevilla", "Toledo", "Córdoba", "Granada"],
+                correct: 2
+            },
+            {
+                question: "¿Qué reinos musulmanes se establecieron después de la desintegración del Califato?",
+                options: ["Reinos de taifas", "Emiratos", "Sultanatos", "Califatos"],
+                correct: 0
+            },
+            {
+                question: "¿En qué periodo gobernaron los almorávides en al-Ándalus?",
+                options: ["1031-1085", "1085-1144", "1144-1224", "1224-1492"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál fue la batalla más importante ganada por Alfons VI en 1085?",
+                options: ["Batalla de Sagrajas", "Batalla de Las Navas de Tolosa", "Conquista de Toledo", "Batalla de Alarcos"],
+                correct: 2
+            },
+            {
+                question: "¿Qué dinastía norteafricana conquistó al-Ándalus en 1086?",
+                options: ["Fatimíes", "Almorávides", "Almohades", "Omeyas"],
+                correct: 1
+            },
+            {
+                question: "¿En qué año se produjo la batalla de Sagrajas?",
+                options: ["1086", "1106", "1147", "1212"],
+                correct: 0
+            },
+            {
+                question: "¿Cuándo penetraron los almohades en la Península Ibérica?",
+                options: ["1086", "1106", "1147", "1171"],
+                correct: 2
+            },
+            {
+                question: "¿Qué reino musulmán fue el último en desaparecer en 1492?",
+                options: ["Reino de Sevilla", "Reino de Córdoba", "Reino de Granada", "Reino de Málaga"],
+                correct: 2
+            },
+            {
+                question: "¿Cuál fue una de las consecuencias principales de la desintegración del Califato?",
+                options: ["Unión de los reinos cristianos", "Fortalecimiento del poder musulmán", "Capacidad de expansión de los cristianos", "Aislamiento total de la Península"],
+                correct: 2
+            },
+            {
+                question: "¿Qué monarca unificó Castilla y León definitivamente?",
+                options: ["Alfonso VI", "Fernando III", "Alfonso X", "Enrique III"],
+                correct: 1
+            },
+            {
+                question: "¿En qué siglo se consolida la monarquía de Castilla?",
+                options: ["Siglo XI", "Siglo XII", "Siglo XIII", "Siglo XIV"],
+                correct: 2
+            },
+            {
+                question: "¿Qué tipo de monarquía era Castilla?",
+                options: ["Federativa", "Unitaria", "Confederada", "Electiva"],
+                correct: 1
+            },
+            {
+                question: "¿Qué corona estaba formada por varios reinos independientes?",
+                options: ["Corona de Castilla", "Corona de Aragón", "Reino de Portugal", "Reino de Navarra"],
+                correct: 1
+            },
+            {
+                question: "¿Cómo se organizaba administrativamente al-Ándalus antes del 1031?",
+                options: ["Por provincias", "Por ciudades-estado", "Por emires", "Por califatos"],
+                correct: 0
+            },
+            {
+                question: "¿Cuál era el órgano de gobierno que asesoraba al rey en Castilla?",
+                options: ["Senado", "Curia Regia", "Parlamento", "Consejo de ministros"],
+                correct: 1
+            },
+            {
+                question: "¿En qué siglo se incorporó la Cúria Regia a los burgueses en Castilla?",
+                options: ["Siglo XI", "Siglo XII", "Siglo XIII", "Siglo XIV"],
+                correct: 2
+            },
+            {
+                question: "¿Qué son las Cortes medievales?",
+                options: ["Palacios reales", "Asambleas de representantes de tres estamentos", "Tribunales de justicia", "Guarniciones militares"],
+                correct: 1
+            },
+            {
+                question: "¿Qué estamentos estaban representados en las Cortes medievales?",
+                options: ["Nobility, clergy and commons", "Clergy, commons and merchants", "Nobility, clergy and people", "Clergy, merchants and farmers"],
+                correct: 2
+            },
+            {
+                question: "¿Cuándo se reunieron las primeras Cortes documentadas en León?",
+                options: ["1076", "1100", "1188", "1212"],
+                correct: 2
+            },
+            {
+                question: "¿Cuál es un ejemplo de monumento del arte mudéjar en al-Ándalus?",
+                options: ["La Alhambra de Granada", "La Girald de Sevilla", "La Mezquita de Córdoba", "La Torre de Oro"],
+                correct: 1
+            },
+            {
+                question: "¿Qué estilo arquitectónico predominó en los almohades?",
+                options: ["Románico", "Gótico", "Mudéjar", "Islámico"],
+                correct: 3
+            },
+            {
+                question: "¿A qué se dedicaba principalmente la economía medieval cristiana?",
+                options: ["Al comercio exterior", "A la agricultura y ganadería", "A la minería", "A la industria textil"],
+                correct: 1
+            },
+            {
+                question: "¿Qué papel tenía la ciudad de Toledo en la Edad Media?",
+                options: ["Principal puerto comercial", "Centro de traducción de obras árabes", "Centro minero", "Capital política"],
+                correct: 1
+            },
+            {
+                question: "¿Qué se comerciaba principalmente desde la Península Ibérica en la Edad Media?",
+                options: ["Oro y plata", "Textiles, lana y especias", "Aceite y vino", "Sal y hierro"],
+                correct: 1
+            },
+            {
+                question: "¿Qué sistema de repoblación se utilizó en la vall del Guadalquivir?",
+                options: ["Repartimiento", "Concejos", "Señoríos", "Foros"],
+                correct: 0
+            },
+            {
+                question: "¿Qué privilegios tenían los caballeros en la sociedad estamental?",
+                options: ["Pagar impuestos y servir", "Poseer tierra y equipo de guerra", "No pagar impuestos y ejercer justicia", "Solo servicio militar"],
+                correct: 2
+            },
+            {
+                question: "¿Cuál era el grupo social más numeroso en el No privilegiado?",
+                options: ["Clero", "Nobleza", "Pecheros", "Caballeros"],
+                correct: 2
+            },
+            {
+                question: "¿Qué eran los mudéjares?",
+                options: ["Cristianos conversos", "Musulmanes en territorio cristiano", "Judíos españoles", "Monjes guerreros"],
+                correct: 1
+            },
+            {
+                question: "¿Cuándo fue expulsada la dinastía de los almohades del territorio andalusí?",
+                options: ["1147", "1212", "1224", "1238"],
+                correct: 2
+            }
+        ];
+
+        let currentQuestion = 0;
+        let answers = new Array(30).fill(null);
+        let testFinished = false;
+
+        function initTest() {
+            renderQuestion();
+            updateProgress();
+        }
+
+        function renderQuestion() {
+            const container = document.getElementById('questionsContainer');
+            const q = questions[currentQuestion];
+            
+            let html = `
+                <div class="question-container">
+                    <div class="question-number">Pregunta ${currentQuestion + 1}</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options">
+            `;
+            
+            q.options.forEach((option, index) => {
+                const isSelected = answers[currentQuestion] === index;
+                const selectedClass = isSelected ? 'selected' : '';
+                html += `
+                    <div class="option ${selectedClass}" onclick="selectOption(${index})">
+                        <input type="radio" id="option${index}" name="answer" value="${index}" ${isSelected ? 'checked' : ''}>
+                        <label for="option${index}">${option}</label>
+                    </div>
+                `;
+            });
+            
+            html += `</div></div>`;
+            container.innerHTML = html;
+            
+            document.getElementById('currentQuestion').textContent = currentQuestion + 1;
+            updateButtons();
+        }
+
+        function selectOption(index) {
+            answers[currentQuestion] = index;
+            renderQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion();
+                updateProgress();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion();
+                updateProgress();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const finishBtn = document.getElementById('finishBtn');
+            
+            prevBtn.style.display = currentQuestion > 0 ? 'block' : 'none';
+            
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.style.display = 'none';
+                finishBtn.style.display = 'block';
+            } else {
+                nextBtn.style.display = 'block';
+                finishBtn.style.display = 'none';
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function finishTest() {
+            calculateResults();
+            showResults();
+        }
+
+        function calculateResults() {
+            let correct = 0;
+            let unanswered = 0;
+            
+            answers.forEach((answer, index) => {
+                if (answer === null) {
+                    unanswered++;
+                } else if (answer === questions[index].correct) {
+                    correct++;
+                }
+            });
+            
+            const incorrect = answers.length - correct - unanswered;
+            const percentage = (correct / questions.length) * 100;
+            const grade = (correct / questions.length) * 10;
+            
+            return {
+                correct,
+                incorrect,
+                unanswered,
+                percentage: Math.round(percentage),
+                grade: grade.toFixed(2)
+            };
+        }
+
+        function showResults() {
+            const results = calculateResults();
+            
+            document.getElementById('testContent').classList.add('hidden');
+            document.getElementById('resultsContent').classList.remove('hidden');
+            
+            const scoreCircle = document.getElementById('scoreCircle');
+            scoreCircle.textContent = results.percentage + '%';
+            
+            scoreCircle.className = 'score-circle';
+            if (results.percentage >= 90) {
+                scoreCircle.classList.add('excellent');
+            } else if (results.percentage >= 70) {
+                scoreCircle.classList.add('good');
+            } else if (results.percentage >= 50) {
+                scoreCircle.classList.add('average');
+            } else {
+                scoreCircle.classList.add('poor');
+            }
+            
+            const messages = {
+                excellent: '¡Excelente! Dominas perfectamente el tema.',
+                good: '¡Muy bien! Tienes una buena comprensión del tema.',
+                average: 'Regular. Necesitas repasar algunos conceptos.',
+                poor: 'Insuficiente. Te recomendamos estudiar más el tema.'
+            };
+            
+            let messageKey = 'poor';
+            if (results.percentage >= 90) messageKey = 'excellent';
+            else if (results.percentage >= 70) messageKey = 'good';
+            else if (results.percentage >= 50) messageKey = 'average';
+            
+            document.getElementById('resultMessage').textContent = messages[messageKey];
+            document.getElementById('correctCount').textContent = results.correct;
+            document.getElementById('incorrectCount').textContent = results.incorrect;
+            document.getElementById('unansweredCount').textContent = results.unanswered;
+            document.getElementById('grade').textContent = results.grade + '/10';
+        }
+
+        function restartTest() {
+            currentQuestion = 0;
+            answers = new Array(30).fill(null);
+            testFinished = false;
+            
+            document.getElementById('testContent').classList.remove('hidden');
+            document.getElementById('resultsContent').classList.add('hidden');
+            
+            renderQuestion();
+            updateProgress();
+        }
+
+        initTest();
+    </script>
+</body>
+</html>
